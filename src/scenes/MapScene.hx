@@ -2,6 +2,7 @@ package scenes;
 
 import com.haxepunk.Scene;
 import com.haxepunk.tmx.*;
+import entities.Creature;
 import entities.TmxAnimatedObject;
 import entities.TmxArea;
 #if nme
@@ -41,7 +42,9 @@ class MapScene extends Scene
 		
 		var e = new TmxEntity(map);
 		
+		
 		for (key in tileset_layer_map.keys()) {
+				trace(key + ", " + tileset_layer_map[key]);
 				e.loadGraphic(Std.string("gfx/" + key), tileset_layer_map[key]);
 			}
 	
@@ -64,7 +67,7 @@ class MapScene extends Scene
 				
 				for (object in group.objects)
 				{
-					//trace("object");
+					trace(object);
 					if (object.gid > 0) {
 						// find tileset
 						for (ts in map.tilesets) 
@@ -88,7 +91,7 @@ class MapScene extends Scene
 							//trace("looking for rect " + index + " rect " + tileset.getRect(index).toString());
 							
 							//trace("frames value: " + object.custom.resolve("frames"));
-							if (object.custom.resolve("frames") == null) { 															
+							if (object.custom.resolve("frames") == null) { // add static
 								addGraphic(
 									new TiledImage(
 										Asset.graphics(tileset.imageSource), 
@@ -98,20 +101,67 @@ class MapScene extends Scene
 									), 
 									HXP.BASELAYER, object.x, object.y-tileset.tileHeight
 								);			
-							} else {								
+							} else { // add animated
 								var framecount = Std.parseInt(object.custom.resolve("frames"));
 								var name = object.custom.resolve("name");
 								if (name == null) name = "undefined"; 
 								if (framecount == null) {
 									framecount = 1;
 								}
-								var e = new TmxAnimatedObject(object.x, object.y - tileset.tileHeight);
-								//trace("added object");
-								e.addSprites(tileset.imageSource, tileset.tileWidth, tileset.tileHeight, 
-										tileset.fromGid(object.gid), framecount); 
-								e.name = name;
-								e.inputHandler = inputHandler;
-								add(e);
+								
+								if (object.type == "creature") {
+									trace(object.custom);
+									//creatures can have "animations" = "idle, walk", and "frames" is a list of ints
+									var e = new Creature(object.x, object.y - tileset.tileHeight);
+									e.name = name;
+									e.width = tileset.tileWidth;
+									e.height = tileset.tileHeight;
+							
+									trace("creature: " +e.name);
+									
+									var animations = object.custom.resolve("animations"); 
+									trace(animations);
+									var frames = object.custom.resolve("frames");
+									trace(frames);
+									var first:Bool = true;
+									if (null != animations) {
+										// split on comma, trim
+										var framecounts:Array<Int> = Lambda.array(
+											Lambda.map(
+													Std.string(frames).split(", "), function(v):Int { return Std.parseInt(v);  } 
+												)
+										);
+										var currentframe = 0;
+										var index = 0;
+										for (anim in Std.string(animations).split(", ")) {
+											trace(anim);
+											if (first) {
+												e.addSprites(tileset.imageSource, tileset.tileWidth, tileset.tileHeight,
+														tileset.fromGid(object.gid), framecounts[0], name = anim);											
+												first = false;
+												currentframe += framecounts[index];
+												index = 1;												
+											} else {
+												var range = [for (i  in currentframe...(currentframe + framecounts[index])) i];
+												trace(range);
+												e.addAnimation(anim, range);
+												currentframe += framecounts[index];
+											}
+											
+										}
+									}
+									trace("adding inputhandler");
+									e.inputHandler = new CreatureInput();									
+									add(e);								
+								} else {
+									var e = new TmxAnimatedObject(object.x, object.y - tileset.tileHeight);
+									//trace("added object");
+									e.addSprites(tileset.imageSource, tileset.tileWidth, tileset.tileHeight, 
+											tileset.fromGid(object.gid), framecount); 
+									e.name = name;
+									e.inputCallback = inputHandler;
+									add(e);
+								}
 								////trace(object.custom.frames);
 							}
 						} 						

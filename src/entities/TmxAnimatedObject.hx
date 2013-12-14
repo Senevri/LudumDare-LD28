@@ -14,18 +14,18 @@ class TmxAnimatedObject extends Entity
 		
 	public function new(x:Float=0, y:Float=0, graphic:Graphic=null, mask:Mask=null) 
 	{
-		super(x, y, graphic, mask);		
+		super(x, y, graphic, mask);				
 	}
 	
 	
 	
-	public function addSprites(imageSource:String, width=0, height=0, ?startFrame = 0, ?count = 1) 
+	public function addSprites(imageSource:String, width=0, height=0, ?startFrame = 0, ?count = 1, ?name="default") 
 	{
 		//trace(Asset.graphics(imageSource));
 		sprite = new Spritemap(Asset.graphics(imageSource), width, height);
 		//trace([for (i in startFrame...count - 1) i]);
-		sprite.add("default", [for (i in startFrame...count) i], 12, true);
-		sprite.play("default");
+		sprite.add(name, [for (i in startFrame...count) i], 10, true);
+		sprite.play(name);
 		//trace ("framecount " + sprite.frameCount + " frame " + sprite.frame + " current " + sprite.currentAnim);
 		graphic = sprite;
 				
@@ -38,15 +38,20 @@ class TmxAnimatedObject extends Entity
 		}
 	}
 	
+	public function addAnimation(name:String, frames:Array<Int>, ?rate:Int = 10)
+	{
+			sprite.add(name, frames, rate);
+	}
+	
 	public override function update() 
 	{
 		super.update();
 		
-		if (null != inputHandler) {
-				inputHandler(this);
+		if (null != inputCallback) {
+				inputCallback(this);
 		}		
 	}
-	public var inputHandler:TmxAnimatedObject->Void;
+	public var inputCallback:TmxAnimatedObject->Void;
 	
 	public var sprite:Spritemap;
 	//public var name:String; //apparently exists by default?

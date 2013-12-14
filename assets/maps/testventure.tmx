@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="13" height="4" tilewidth="32" tileheight="60">
+ <tileset firstgid="1" name="testventure" tilewidth="32" tileheight="60">
+  <image source="../gfx/testventure.png" trans="000000" width="128" height="120"/>
+ </tileset>
+ <tileset firstgid="9" name="statusbar" tilewidth="400" tileheight="60">
+  <image source="../gfx/statusbar.png" trans="000000" width="400" height="60"/>
+ </tileset>
+ <tileset firstgid="10" name="player" tilewidth="32" tileheight="60">
+  <image source="../gfx/player.png" width="128" height="120"/>
+ </tileset>
+ <imagelayer name="background" width="13" height="4">
+  <image source="../gfx/adventure_mockup.png"/>
+ </imagelayer>
+ <layer name="Tiles" width="13" height="4">
+  <data>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+  </data>
+ </layer>
+ <objectgroup name="Creatures" width="13" height="4">
+  <properties>
+   <property name="draw" value="yes"/>
+  </properties>
+  <object name="Player" type="creature" gid="10" x="0" y="120">
+   <properties>
+    <property name="animations" value="idle, walk"/>
+    <property name="frames" value="4, 4"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="UI" width="13" height="4">
+  <properties>
+   <property name="draw" value="yes"/>
+  </properties>
+  <object gid="9" x="0" y="240"/>
+ </objectgroup>
+</map>
