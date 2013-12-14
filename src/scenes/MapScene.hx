@@ -3,6 +3,7 @@ package scenes;
 import com.haxepunk.Scene;
 import com.haxepunk.tmx.*;
 import entities.TmxAnimatedObject;
+import entities.TmxArea;
 #if nme
 import nme.Assets;
 #else
@@ -27,7 +28,7 @@ class MapScene extends Scene
 		
 	}
 	
-	public function drawMap (map:TmxMap, layermap:Map < String, Array<String> > ) 
+	public function drawMap (map:TmxMap, layermap:Map < String, Array<String> >, ?inputHandler:TmxAnimatedObject->Void=null ) 
 	{
 		for (key in map.imageLayers.keys()) {
 			var imgpath = map.imageLayers[key];
@@ -109,11 +110,23 @@ class MapScene extends Scene
 								e.addSprites(tileset.imageSource, tileset.tileWidth, tileset.tileHeight, 
 										tileset.fromGid(object.gid), framecount); 
 								e.name = name;
+								e.inputHandler = inputHandler;
 								add(e);
 								////trace(object.custom.frames);
 							}
 						} 						
 					}
+				}
+			} else { // not drawable object group
+				if (group.name == "Areas") {
+					for (object in group.objects) {
+						var e = new TmxArea(object.x, object.y);
+						e.width = object.width;
+						e.height = object.height;
+						e.name = object.name;
+						add(e);
+					}
+					
 				}
 			}
 		}

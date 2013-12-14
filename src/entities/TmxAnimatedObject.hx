@@ -17,6 +17,8 @@ class TmxAnimatedObject extends Entity
 		super(x, y, graphic, mask);		
 	}
 	
+	
+	
 	public function addSprites(imageSource:String, width=0, height=0, ?startFrame = 0, ?count = 1) 
 	{
 		//trace(Asset.graphics(imageSource));
@@ -39,11 +41,13 @@ class TmxAnimatedObject extends Entity
 	public override function update() 
 	{
 		super.update();
-		if (sprite.currentAnim != "foo") {
-			//sprite.play("foo");			
-		}
+		
+		if (null != inputHandler) {
+				inputHandler(this);
+		}		
 	}
+	public var inputHandler:TmxAnimatedObject->Void;
 	
-	private var sprite:Spritemap;
+	public var sprite:Spritemap;
 	//public var name:String; //apparently exists by default?
 }

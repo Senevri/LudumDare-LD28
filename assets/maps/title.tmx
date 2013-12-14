@@ -401,12 +401,24 @@
   <properties>
    <property name="draw" value="yes"/>
   </properties>
-  <object name="enterbtn" gid="17" x="176" y="144"/>
+  <object name="enterbtn" gid="17" x="176" y="144">
+   <properties>
+    <property name="option" value="enter"/>
+   </properties>
+  </object>
   <object name="chevron" gid="19" x="144" y="144">
    <properties>
     <property name="frames" value="4"/>
    </properties>
   </object>
-  <object name="stuff" gid="18" x="176" y="112"/>
+  <object name="stuff" gid="18" x="176" y="112">
+   <properties>
+    <property name="option" value="stuff"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Areas" width="25" height="15">
+  <object name="stuff" x="125" y="77" width="52" height="36"/>
+  <object name="enter" x="126" y="115" width="52" height="30"/>
  </objectgroup>
 </map>
