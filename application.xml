@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	<!-- NMML reference: https://gist.github.com/1763850 -->
+	
+	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
+	<meta title="LD28" package="LD28" version="1.0.0" company="Esa Karjalainen" />
+	
+	<!-- output -->
+	<app main="Main" file="Main" path="bin" />
+	
+	<window background="#000000" fps="60" />
+	<window width="800" height="480" unless="mobile" />
+	<window orientation="landscape" vsync="false" antialiasing="0" if="cpp" />
+	
+	<!-- classpath, haxe libs -->
+	<source path="src" />
+	<source path="tiled" />
+	<!--source path="haxepunk" /-->
+	<haxelib name="openfl" version="1.2.0" />
+	<haxelib name="haxepunk" version="git" />
+	<!-- haxelib name="actuate" /-->
+	
+	<!-- assets -->
+	<icon path="assets/haxepunk.svg" />
+	<assets path="assets/img" rename="img" />
+	<assets path="assets/gfx" rename="gfx" include="*.png|*.jpg" />
+    <assets path="assets/font" rename="font" include="*.ttf" />    
+    <assets path="assets/img" rename="img" />
+	<assets path="assets/maps" rename="maps" />;
+	<assets path="assets/music" rename="music" />;
+	<assets path="assets/sfx" rename="sfx" />;
+       
+	
+	
+	<!-- optimize output
+	<haxeflag name="-dce full" /> -->
+	
+</project>
