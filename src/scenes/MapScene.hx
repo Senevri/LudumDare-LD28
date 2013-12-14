@@ -44,7 +44,7 @@ class MapScene extends Scene
 		
 		
 		for (key in tileset_layer_map.keys()) {
-				trace(key + ", " + tileset_layer_map[key]);
+				//trace(key + ", " + tileset_layer_map[key]);
 				e.loadGraphic(Std.string("gfx/" + key), tileset_layer_map[key]);
 			}
 	
@@ -67,7 +67,7 @@ class MapScene extends Scene
 				
 				for (object in group.objects)
 				{
-					trace(object);
+					//trace(object);
 					if (object.gid > 0) {
 						// find tileset
 						for (ts in map.tilesets) 
@@ -103,26 +103,27 @@ class MapScene extends Scene
 								);			
 							} else { // add animated
 								var framecount = Std.parseInt(object.custom.resolve("frames"));
-								var name = object.custom.resolve("name");
+								var name = object.name;
 								if (name == null) name = "undefined"; 
 								if (framecount == null) {
 									framecount = 1;
 								}
 								
 								if (object.type == "creature") {
-									trace(object.custom);
+									//trace(object.custom);
 									//creatures can have "animations" = "idle, walk", and "frames" is a list of ints
 									var e = new Creature(object.x, object.y - tileset.tileHeight);
 									e.name = name;
 									e.width = tileset.tileWidth;
 									e.height = tileset.tileHeight;
+									e.currentPosition = Math.round(object.x / tileset.tileWidth);
 							
-									trace("creature: " +e.name);
+									//trace("creature: " +e.name);
 									
 									var animations = object.custom.resolve("animations"); 
-									trace(animations);
+									//trace(animations);
 									var frames = object.custom.resolve("frames");
-									trace(frames);
+									//trace(frames);
 									var first:Bool = true;
 									if (null != animations) {
 										// split on comma, trim
@@ -134,7 +135,7 @@ class MapScene extends Scene
 										var currentframe = 0;
 										var index = 0;
 										for (anim in Std.string(animations).split(", ")) {
-											trace(anim);
+											//trace(anim);
 											if (first) {
 												e.addSprites(tileset.imageSource, tileset.tileWidth, tileset.tileHeight,
 														tileset.fromGid(object.gid), framecounts[0], name = anim);											
@@ -143,14 +144,14 @@ class MapScene extends Scene
 												index = 1;												
 											} else {
 												var range = [for (i  in currentframe...(currentframe + framecounts[index])) i];
-												trace(range);
+												//trace(range);
 												e.addAnimation(anim, range);
 												currentframe += framecounts[index];
 											}
 											
 										}
 									}
-									trace("adding inputhandler");
+									//trace("adding inputhandler");
 									e.inputHandler = new CreatureInput();									
 									add(e);								
 								} else {

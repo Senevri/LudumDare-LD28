@@ -40,7 +40,11 @@ class TmxAnimatedObject extends Entity
 	
 	public function addAnimation(name:String, frames:Array<Int>, ?rate:Int = 10)
 	{
-			sprite.add(name, frames, rate);
+		//HAX
+		var loop = true;
+		if (name == "jump") loop = false;
+		
+		sprite.add(name, frames, rate, loop);
 	}
 	
 	public override function update() 

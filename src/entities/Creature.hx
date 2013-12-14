@@ -18,6 +18,7 @@ class Creature extends TmxAnimatedObject
 	{
 		super(x, y, graphic, mask);
 		this.collidable = true;
+		this.type = "creature";
 	}
 	
 	override public function update() 
