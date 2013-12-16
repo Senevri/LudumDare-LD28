@@ -70,8 +70,8 @@ class Menu extends MapScene
 					case "stuff":
 						trace("stuff");					
 					case "enter":
-						trace("enter game");
-						HXP.scene = new Adventure();
+						//trace("enter game");
+						HXP.scene = new Adventure("battle.tmx");
 						HXP.swapScene();
 					default:
 						trace(area.name);

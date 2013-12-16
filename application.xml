@@ -6,7 +6,7 @@
 	<meta title="LD28" package="LD28" version="1.0.0" company="Esa Karjalainen" />
 	
 	<!-- output -->
-	<app main="Main" file="Main" path="bin" />
+	<app main="Main" file="LD28" path="bin" />
 	
 	<window background="#000000" fps="60" />
 	<window width="800" height="480" unless="mobile" />
@@ -26,7 +26,7 @@
 	<assets path="assets/gfx" rename="gfx" include="*.png|*.jpg" />
     <assets path="assets/font" rename="font" include="*.ttf" />    
     <assets path="assets/img" rename="img" />
-	<assets path="assets/maps" rename="maps" />;
+	<assets path="assets/maps" rename="maps" include="*.tmx|*.tsx" />;
 	<assets path="assets/music" rename="music" />;
 	<assets path="assets/sfx" rename="sfx" />;
        

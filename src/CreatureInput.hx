@@ -1,8 +1,10 @@
 package ;
 
+import com.haxepunk.HXP;
 import com.haxepunk.utils.Input;
 import com.haxepunk.utils.Key;
 import entities.Creature;
+import entities.Bullet;	
 
 /**
  * ...
@@ -26,77 +28,107 @@ class CreatureInput
 	
 	public function getInput(creature:Creature):Map<String, Float>
 	{
-		if (jumping) {
-			/*if (creature.x != creature.currentPosition * creature.width) {
-					creature.sprite.setAnimFrame("jump", 3);
-			}*/
-			if (Math.round(creature.x+velocity / creature.width) < 0) {
-				velocity = 0;
+		if (!creature.userInput) {
+			return ["message" => -1];
+		}
+		var vmult = creature.width / 16;
+		//trace ("getting input " + creature.x + " | " + creature.currentPosition*creature.width);
+		//prevent leaving map
+		if (creature.sprite.complete) {			
+			jumping = false;
+			if (creature.sprite.currentAnim != "walk") 
+				creature.sprite.play("idle");
+		}
+		
+		if (creature.sprite.currentAnim == "idle") { h_velocity = 0; }
+		
+		
+		if (creature.x + h_velocity < 0 && h_velocity != 0) {
+				h_velocity = 0;
+				jumping = false;
+				creature.currentPosition = 0;
+		}
+		
+		if ((creature.currentPosition * creature.width) == creature.x) {
+			jumping = false;
+			h_velocity = 0;
+			v_velocity = 0;
+		}
+		
+		if (!jumping) {
+			if (Input.check("left")) { 	
+				if (h_velocity == 0) creature.currentPosition -= 1;
+				h_velocity = -vmult;
+			}
+			if (Input.check("right")) { 	
+				if (h_velocity == 0) creature.currentPosition += 1;
+				h_velocity = vmult;
 			}
 			
-			if ((creature.currentPosition * creature.width) != creature.x+velocity) {				
-				creature.moveBy(velocity*2, 0);
-				//return null; //not used as of yet
+			if (creature.allowVerticalMovement) {
+				//trace(creature.currentArea);
+				if (Input.check("up")) { 	
+					v_velocity = -vmult;
+				}
+				if (Input.check("down")) { 	
+					v_velocity = vmult;
+				}
 			} else {
-				velocity = 0;
-			}
-			if (creature.sprite.complete) {
-				creature.currentPosition = Math.round(creature.x / creature.width);
-				jumping = false;
-				velocity = 0;
-				creature.sprite.play("idle");
-			} else {
-				return null;
+				v_velocity = 0;
 			}
 		}
 		
-		//trace ("getting input " + creature.x + " | " + creature.currentPosition*creature.width);
-		if ((creature.currentPosition*creature.width) == creature.x) 
-			velocity = 0;
-		
-		
-		if (Input.check("left")) { 	
-			if (velocity == 0) creature.currentPosition -= 1;
-			velocity = -2;
+		if (h_velocity<0) {
+			creature.sprite.flipped = true;
+			
+		} else {
+			creature.sprite.flipped = false;
+			
 		}
-		if (Input.check("right")) { 	
-			if (velocity == 0) creature.currentPosition += 1;
-			velocity = 2;
-		}
-		
+				
 		if (Input.check("attack")) {
-			creature.sprite.play("attack");
-		}  else if (Input.check("jump")) {
+			creature.sprite.play("attack");					
+			if (creature.ammo > 0) {
+				var bullet:Bullet = new Bullet(creature.x + creature.width, creature.y);
+				bullet.velocity = 3;
+				bullet.angle = 80 - this.h_velocity*5;
+				HXP.scene.add(bullet);
+				creature.ammo -= 1;
+			}
+			
+		} else if (Input.check("jump") && !jumping) {
 			jumping = true;
 			var anim = creature.sprite.play("jump");			
-			velocity = facing;
-			
-		} else {		
-			if (0 == velocity) {
+			h_velocity = facing/Math.abs(facing) * 2*vmult;	
+			//trace ("getting input " + creature.x + " | " + creature.currentPosition*creature.width);
+		
+			creature.currentPosition += 2*Math.round((h_velocity / Math.abs(h_velocity)));
+		} else if (!jumping) {		
+			if (0 == h_velocity && 0 == v_velocity) {
 				creature.sprite.play("idle");
 			} else {		
 				creature.sprite.play("walk");			
 			}
 		}
 		
-		
-		if (velocity<0) {
-			creature.sprite.flipped = true;
-			
-		} else {
-			creature.sprite.flipped = false;
-			
-		}	
-		creature.moveBy(velocity, 0);
+		creature.moveBy(h_velocity, v_velocity);
 			
 		// keep track of last direction moved
-		if (velocity != 0) {
-			facing = velocity;
+		if (h_velocity != 0 && !jumping) {
+			facing = h_velocity;
 		}
-		return ["x"=>velocity];
+		return ["x" => h_velocity, "y"=>v_velocity];
+		
+		
+	}
+	
+	public function setVelocity(object:Float) 
+	{
+		h_velocity = object;
 	}
 	
 	private var facing:Float = 2;
-	private var velocity:Float = 0;
-	public var jumping:Bool = false;
+	private var h_velocity:Float = 0;
+	private var v_velocity:Float = 0;
+	public var jumping:Bool = false;	
 }

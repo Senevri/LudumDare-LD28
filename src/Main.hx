@@ -13,6 +13,7 @@ class Main extends Engine {
         trace("HaxePunk is running!");
 		HXP.scene = new Menu();
 		HXP.screen.scale = 2;
+		
     }
 	
 	

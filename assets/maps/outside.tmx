@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="4" tilewidth="32" tileheight="60">
+ <tileset firstgid="1" source="testventure.tsx"/>
+ <tileset firstgid="33" source="player.tsx"/>
+ <imagelayer name="Background" width="20" height="4">
+  <image source="../gfx/nightbg_640w.png"/>
+  <properties>
+   <property name="position" value="fixed"/>
+  </properties>
+ </imagelayer>
+ <layer name="Tiles" width="20" height="4">
+  <data>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="16"/>
+   <tile gid="15"/>
+   <tile gid="16"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="16"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="16"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="15"/>
+   <tile gid="16"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="16"/>
+   <tile gid="14"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+  </data>
+ </layer>
+ <objectgroup name="Creatures" width="20" height="4">
+  <properties>
+   <property name="draw" value="yes"/>
+  </properties>
+  <object name="Player" type="creature" gid="33" x="32" y="121">
+   <properties>
+    <property name="animations" value="idle, walk, attack, jump"/>
+    <property name="frames" value="4, 8, 4, 8"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Areas" width="20" height="4">
+  <object name="AreaTransition" type="portal" x="608" y="59" width="39" height="68">
+   <properties>
+    <property name="Load" value="battle.tmx"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

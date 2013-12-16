@@ -1,5 +1,6 @@
 package scenes;
 
+import com.haxepunk.graphics.prototype.Rect;
 import com.haxepunk.Scene;
 import com.haxepunk.tmx.*;
 import entities.Creature;
@@ -26,13 +27,20 @@ class MapScene extends Scene
 	public function new() 
 	{
 		super();
-		
+		viewport = new Rect(HXP.screen.width, HXP.screen.height);
+		viewport.x = 0;
+		viewport.y = 0;
+		HXP.setCamera(0, 0);
+		//for now we only care about X and Y offsets.
 	}
+	
+	public var viewport:Rect;
 	
 	public function drawMap (map:TmxMap, layermap:Map < String, Array<String> >, ?inputHandler:TmxAnimatedObject->Void=null ) 
 	{
 		for (key in map.imageLayers.keys()) {
 			var imgpath = map.imageLayers[key];
+			//trace("aa" + imgpath);
 			addGraphic(new Image(Asset.graphics(imgpath)));			
 		}
 		
@@ -41,11 +49,12 @@ class MapScene extends Scene
 		var tileset_layer_map = layermap;
 		
 		var e = new TmxEntity(map);
+		e.followCamera = true;
 		
 		
 		for (key in tileset_layer_map.keys()) {
 				//trace(key + ", " + tileset_layer_map[key]);
-				e.loadGraphic(Std.string("gfx/" + key), tileset_layer_map[key]);
+				e.loadGraphic(key, tileset_layer_map[key]);
 			}
 	
 		/*for (tileset in map.tilesets) {
@@ -61,7 +70,8 @@ class MapScene extends Scene
 		for (group in map.objectGroups) 
 		{
 			//trace("group name:´" + group.name);
-			if (null != group.properties.resolve("draw")) 
+			var draw:String = group.properties.resolve("draw");
+			if (null != draw && draw == "yes") 
 			{
 				var tileset:TmxTileSet = null;
 				
@@ -73,6 +83,10 @@ class MapScene extends Scene
 						for (ts in map.tilesets) 
 						{							
 							//trace("tilesets");
+							//trace("bb" + ts.imageSource);
+							if (ts.imageSource == null) {
+								break;
+							}
 							ts.set_image(Assets.getBitmapData(Asset.graphics(ts.imageSource)));
 							if (ts.hasGid(object.gid)) {
 								//trace("tileset " + ts.name +" has gid " + object.gid + " first " + ts.firstGID + " count " +ts.numTiles); 
@@ -92,6 +106,7 @@ class MapScene extends Scene
 							
 							//trace("frames value: " + object.custom.resolve("frames"));
 							if (object.custom.resolve("frames") == null) { // add static
+								//trace("cc" + object.name);
 								addGraphic(
 									new TiledImage(
 										Asset.graphics(tileset.imageSource), 
@@ -119,6 +134,10 @@ class MapScene extends Scene
 									e.currentPosition = Math.round(object.x / tileset.tileWidth);
 							
 									//trace("creature: " +e.name);
+									var health = object.custom.resolve("health");
+									if (null == health) health = "2";
+									
+									e.health = Std.parseFloat(health);
 									
 									var animations = object.custom.resolve("animations"); 
 									//trace(animations);
@@ -133,7 +152,7 @@ class MapScene extends Scene
 												)
 										);
 										var currentframe = 0;
-										var index = 0;
+										var index = 0;									
 										for (anim in Std.string(animations).split(", ")) {
 											//trace(anim);
 											if (first) {
@@ -152,7 +171,8 @@ class MapScene extends Scene
 										}
 									}
 									//trace("adding inputhandler");
-									e.inputHandler = new CreatureInput();									
+									e.inputHandler = new CreatureInput();											
+									// could add scene to inputhandler.
 									add(e);								
 								} else {
 									var e = new TmxAnimatedObject(object.x, object.y - tileset.tileHeight);
@@ -173,8 +193,11 @@ class MapScene extends Scene
 					for (object in group.objects) {
 						var e = new TmxArea(object.x, object.y);
 						e.width = object.width;
-						e.height = object.height;
+						e.height = object.height;						
 						e.name = object.name;
+						//e.parameters = object.custom.parameters();
+						e.properties.set("direction", object.custom.resolve("direction"));
+						
 						add(e);
 					}
 					

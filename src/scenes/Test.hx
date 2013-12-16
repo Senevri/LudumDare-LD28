@@ -1,7 +1,7 @@
 package scenes;
 
 import com.haxepunk.Scene;
-import entities.TestEntity;
+import entities.Bullet;
 
 /**
  * ...
@@ -18,7 +18,7 @@ class Test extends Scene
 	
 	public override function begin() 
 	{
-		add(new TestEntity(30, 30));
+		add(new Bullet(30, 30));
 	}
 	
 }
