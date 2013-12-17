@@ -32,6 +32,7 @@ class Cinematic extends Scene
 		var asset = Asset.music(Std.string(source));
 		var sfx = new Sfx(asset);
 		trace(sfx);
+		sfx.play();
 		audio = sfx;
 	}
 	

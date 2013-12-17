@@ -306,7 +306,7 @@
    <properties>
     <property name="animations" value="idle"/>
     <property name="frames" value="2"/>
-    <property name="health" value="10"/>
+    <property name="health" value="30"/>
    </properties>
   </object>
  </objectgroup>

@@ -33,12 +33,19 @@ class CreatureInput
 	
 	public function getInput(creature:Creature):Map<String, Float>
 	{
+		if (null != inputCallback) {
+			inputCallback(creature);
+			return ["message" => -2];
+		}
+		
 		if (!creature.userInput) {
 			creature.moveBy(h_velocity, v_velocity);
 			
 			return ["message" => -1];
 			// TODO: AI here. 
 		}
+				
+		
 		var vmult = creature.width / 16;
 		//trace ("getting input " + creature.x + " | " + creature.currentPosition*creature.width);
 		//prevent leaving map
@@ -85,14 +92,7 @@ class CreatureInput
 				v_velocity = 0;
 			}
 		}
-		
-		if (h_velocity<0) {
-			creature.sprite.flipped = true;
-			
-		} else {
-			creature.sprite.flipped = false;
-			
-		}
+				
 				
 		if (Input.check("attack")) {
 			creature.sprite.play("attack");					
@@ -107,16 +107,33 @@ class CreatureInput
 		} else if (Input.check("jump") && !jumping) {
 			jumping = true;
 			var anim = creature.sprite.play("jump");			
-			h_velocity = facing/Math.abs(facing) * 2*vmult;	
-			//trace ("getting input " + creature.x + " | " + creature.currentPosition*creature.width);
+			//trace(h_velocity);
+			//trace ("getting input " + creature.x + " | " + creature.currentPosition*creature.width);		
+			//creature.currentPosition += 2*Math.round((h_velocity / Math.abs(h_velocity)));
+			
+		} else if (Input.check("jump") && jumping) {
+			jumping = false;
 		
-			creature.currentPosition += 2*Math.round((h_velocity / Math.abs(h_velocity)));
+		
 		} else if (!jumping) {		
 			if (0 == h_velocity && 0 == v_velocity) {
 				creature.sprite.play("idle");
 			} else {		
 				creature.sprite.play("walk");			
 			}
+		}	
+		
+		
+		if (jumping) {
+			if (creature.sprite.index <4) // FIXME magic number
+				h_velocity = facing / Math.abs(facing) * 2 *  vmult;	
+		}
+		
+		if (h_velocity<0) {
+			creature.sprite.flipped = true;
+			
+		} else {
+			creature.sprite.flipped = false;
 		}
 		
 		creature.moveBy(h_velocity, v_velocity);
@@ -139,4 +156,6 @@ class CreatureInput
 	private var h_velocity:Float = 0;
 	private var v_velocity:Float = 0;
 	public var jumping:Bool = false;	
+	
+	public var inputCallback:Dynamic->Void = null;
 }

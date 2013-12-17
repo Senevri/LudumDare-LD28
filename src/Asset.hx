@@ -29,7 +29,6 @@ class Asset
 	{
 		var music = pathify("music", source);
 		//var music = Assets.getMusic(source);
-		//trace(music);		
 		return music;
 	}
 	

@@ -70,6 +70,7 @@ class Adventure extends MapScene
 				
 			if (c.name == "Player") {
 				c.userInput = true;
+				
 				var cam_d = c.x + c.halfWidth - camera.x; // delta
 				var from_center = Math.abs(cam_d - HXP.screen.width / 2);
 				var magic = 5;
@@ -81,8 +82,11 @@ class Adventure extends MapScene
 					
 					}
 					
-				} else if (cam_d > HXP.screen.width / 2){
-					camera.x += (from_center/magic);
+				} else if (cam_d > HXP.screen.width / 2) {
+					//trace (Std.string(map.fullWidth + "|"+  camera.x + "|"+ HXP.screen.width));
+					if ((camera.x + HXP.screen.width) < map.fullWidth) {
+						camera.x += (from_center / magic);
+					}
 				}	
 				
 			} else if (c.name == "spider") {		
@@ -90,7 +94,11 @@ class Adventure extends MapScene
 					c.inputHandler = new CreatureInput();
 				}
 				//trace(c.inputHandler);
-				if (c.children.length == 0) {
+				var hp:Float = 0;
+				for (leg in c.children) {
+					hp += leg.health;
+				}
+				if (hp == 0) {
 					testmove = 0;
 				}
 				c.inputHandler.setInput( testmove, 0);

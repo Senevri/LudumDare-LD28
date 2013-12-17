@@ -51,7 +51,7 @@ class Bullet extends Entity
 					scene.add(new Powerup(creature.x + creature.halfWidth, creature.y + creature.halfHeight));
 					if (creature.name == "spider") {
 						//HXP.scene.
-						HXP.scene = new Cinematic("anim_placeholder", 400, 240, 10, 1);
+						HXP.scene = new Cinematic("anim_placeholder", 400, 240, 10, 4);
 						HXP.swapScene();
 					}
 				}

@@ -9,13 +9,14 @@
 	<app main="Main" file="LD28-postjam" path="bin" />
 	
 	<window background="#000000" fps="60" />
+	<!-- window width="1280" height="720" unless="mobile" /-->
 	<window width="800" height="480" unless="mobile" />
 	<window orientation="landscape" vsync="false" antialiasing="0" if="cpp" />
 	
 	<!-- classpath, haxe libs -->
 	<source path="src" />
 	<source path="tiled" />
-	<!--source path="haxepunk" /-->
+	<!--source path="haxepunk" /-->	
 	<haxelib name="openfl" version="1.2.0" />
 	<haxelib name="haxepunk" version="git" />
 	<!-- haxelib name="actuate" /-->
@@ -27,7 +28,7 @@
     <assets path="assets/font" rename="font" include="*.ttf" />    
     <assets path="assets/img" rename="img" />
 	<assets path="assets/maps" rename="maps" include="*.tmx|*.tsx" />;
-	<assets path="assets/music" rename="music" />;
+	<assets path="assets/music" rename="music" include="*.wav|*.flac" />;
 	<assets path="assets/sfx" rename="sfx" />;
        
 	
