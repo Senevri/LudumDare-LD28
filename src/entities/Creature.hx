@@ -20,11 +20,14 @@ class Creature extends TmxAnimatedObject
 		super(x, y, graphic, mask);
 		this.collidable = true;
 		this.type = "creature";
+		powerups = new Array<Powerup>();
 	}
 	
 	override public function update() 
 	{
-		this.mask = new Imagemask(this.sprite);
+		if (null != this.sprite) {
+			this.mask = new Imagemask(this.sprite);
+		}
 		super.update();
 		
 		//trace("update");
@@ -52,4 +55,5 @@ class Creature extends TmxAnimatedObject
 	public var userInput = false;
 	public var health:Float = 2;
 	public var ammo:Int = 1; // for testing
+	public var powerups:Array<Powerup> = null;
 }

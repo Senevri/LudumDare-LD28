@@ -46,50 +46,75 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
+   <tile gid="49"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -115,31 +140,6 @@
    <tile gid="46"/>
    <tile gid="46"/>
    <tile gid="46"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -244,6 +244,7 @@
     <property name="direction" value="180"/>
    </properties>
   </object>
+  <object type="walkable" x="16" y="29" width="302" height="97"/>
  </objectgroup>
  <objectgroup name="Creatures" width="25" height="8">
   <properties>
@@ -255,43 +256,50 @@
     <property name="frames" value="4, 8, 4, 8"/>
    </properties>
   </object>
-  <object name="leg_l" type="creature" gid="59" x="52" y="98">
+ </objectgroup>
+ <objectgroup name="Spider" width="25" height="8">
+  <properties>
+   <property name="draw" value="yes"/>
+   <property name="master" value="spider"/>
+   <property name="type" value="creature"/>
+  </properties>
+  <object name="leg_l" type="creature" gid="59" x="105" y="89">
    <properties>
     <property name="animations" value="idle"/>
     <property name="frames" value="7"/>
    </properties>
   </object>
-  <object name="leg_r" type="creature" gid="66" x="179" y="98">
+  <object name="leg_r" type="creature" gid="66" x="232" y="89">
    <properties>
     <property name="animations" value="idle"/>
     <property name="frames" value="6"/>
    </properties>
   </object>
-  <object name="leg_l" type="creature" gid="59" x="46" y="116">
+  <object name="leg_l" type="creature" gid="59" x="99" y="107">
    <properties>
     <property name="animations" value="idle"/>
     <property name="frames" value="7"/>
    </properties>
   </object>
-  <object name="leg_l" type="creature" gid="59" x="46" y="143">
+  <object name="leg_l" type="creature" gid="59" x="99" y="134">
    <properties>
     <property name="animations" value="idle"/>
     <property name="frames" value="7"/>
    </properties>
   </object>
-  <object name="leg_r" type="creature" gid="66" x="171" y="122">
+  <object name="leg_r" type="creature" gid="66" x="224" y="113">
    <properties>
     <property name="animations" value="idle"/>
     <property name="frames" value="6"/>
    </properties>
   </object>
-  <object name="leg_r" type="creature" gid="66" x="168" y="141">
+  <object name="leg_r" type="creature" gid="66" x="221" y="132">
    <properties>
     <property name="animations" value="idle"/>
     <property name="frames" value="6"/>
    </properties>
   </object>
-  <object name="spider" type="creature" gid="57" x="105" y="98">
+  <object name="spider" type="creature" gid="57" x="158" y="89">
    <properties>
     <property name="animations" value="idle"/>
     <property name="frames" value="2"/>

@@ -22,7 +22,7 @@
 	
 	<!-- assets -->
 	<icon path="assets/haxepunk.svg" />
-	<assets path="assets/img" rename="img">
+	<assets path="assets/img" rename="img" />
 	<assets path="assets/gfx" rename="gfx" include="*.png|*.jpg" />
     <assets path="assets/font" rename="font" include="*.ttf" />    
     <assets path="assets/img" rename="img" />

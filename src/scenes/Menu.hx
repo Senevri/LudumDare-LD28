@@ -67,8 +67,9 @@ class Menu extends MapScene
 			
 			if (Input.check("enter")) {							
 				switch (area.name) {
-					case "stuff":
-						trace("stuff");					
+					case "cinematic":
+						HXP.scene = new Cinematic("intro_movie", 400, 240, 20, 2);
+						HXP.swapScene();
 					case "enter":
 						//trace("enter game");
 						HXP.scene = new Adventure("battle.tmx");

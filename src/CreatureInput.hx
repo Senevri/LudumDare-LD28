@@ -26,10 +26,18 @@ class CreatureInput
 		
 	}
 	
+	public function setInput(x, y) {
+			h_velocity = x;
+			v_velocity = y;
+	}
+	
 	public function getInput(creature:Creature):Map<String, Float>
 	{
 		if (!creature.userInput) {
+			creature.moveBy(h_velocity, v_velocity);
+			
 			return ["message" => -1];
+			// TODO: AI here. 
 		}
 		var vmult = creature.width / 16;
 		//trace ("getting input " + creature.x + " | " + creature.currentPosition*creature.width);
@@ -49,11 +57,11 @@ class CreatureInput
 				creature.currentPosition = 0;
 		}
 		
-		if ((creature.currentPosition * creature.width) == creature.x) {
-			jumping = false;
+		//if ((creature.currentPosition * creature.width) == creature.x) {
+			//jumping = false;
 			h_velocity = 0;
 			v_velocity = 0;
-		}
+		//}
 		
 		if (!jumping) {
 			if (Input.check("left")) { 	

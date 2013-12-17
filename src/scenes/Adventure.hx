@@ -49,13 +49,15 @@ class Adventure extends MapScene
 		for (c in creatures) {
 			c.allowVerticalMovement = false;
 				
-			trace(c.name);
+			//trace(c.name);
 			if (c.name == "Player") {
 				c.userInput = true;
 			}
 		}
 	}
 	
+	
+	private var testmove = -1;
 	override public function update() 
 	{
 		super.update();
@@ -80,9 +82,21 @@ class Adventure extends MapScene
 					
 				} else if (cam_d > HXP.screen.width / 2){
 					camera.x += (from_center/magic);
+				}	
+				
+			} else if (c.name == "spider") {		
+				if (null == c.inputHandler) {
+					c.inputHandler = new CreatureInput();
 				}
+				//trace(c.inputHandler);
+				c.inputHandler.setInput( testmove, 0);
+				if (c.x < 30) testmove = 1;
+				if (c.x > 200) testmove = -1;				
+			
+			} else {
 				
 			}
+			
 		}
 		
 		if (!map.objectGroups.exists("Areas")) return;
@@ -110,7 +124,7 @@ class Adventure extends MapScene
 				
 				if (area.type == "portal") {
 					var level = area.custom.resolve("Load");
-					trace(level);
+					//trace(level);
 					HXP.scene = new Adventure(level);
 					HXP.swapScene();
 					camera.setTo(0, 0);

@@ -10,7 +10,7 @@ class Main extends Engine {
 #if debug
         HXP.console.enable();
 #end
-        trace("HaxePunk is running!");
+        //trace("HaxePunk is running!");
 		HXP.scene = new Menu();
 		HXP.screen.scale = 2;
 		

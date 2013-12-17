@@ -3,6 +3,7 @@ package scenes;
 import com.haxepunk.graphics.prototype.Rect;
 import com.haxepunk.Scene;
 import com.haxepunk.tmx.*;
+import entities.CompositeCreature;
 import entities.Creature;
 import entities.TmxAnimatedObject;
 import entities.TmxArea;
@@ -69,11 +70,21 @@ class MapScene extends Scene
 		
 		for (group in map.objectGroups) 
 		{
+			//TODO: Fix this monstrosity.
 			//trace("group name:´" + group.name);
 			var draw:String = group.properties.resolve("draw");
 			if (null != draw && draw == "yes") 
 			{
 				var tileset:TmxTileSet = null;
+				var grouptype = group.properties.resolve("type");
+									
+				var mastercreature:CompositeCreature = new CompositeCreature();
+				if (grouptype == "creature") {
+					var mastername = group.properties.resolve("master");
+					mastercreature.name = mastername;										
+					//trace("group " + group.name + " represents a single creature");
+				} 
+									
 				
 				for (object in group.objects)
 				{
@@ -96,17 +107,13 @@ class MapScene extends Scene
 						} 
 						if (null != tileset) 
 						{							
-							// FIXME fromgid doesn't work as expected.
 							var index = tileset.fromGid(object.gid);
-							//var index = object.gid - tileset.firstGID;
 							
 							//trace("tileset " + tileset.numCols + " - " + tileset.numRows);							
 							//trace(Asset.graphics(tileset.imageSource) + " w " + tileset.tileWidth + " h " + tileset.tileHeight);
 							//trace("looking for rect " + index + " rect " + tileset.getRect(index).toString());
 							
-							//trace("frames value: " + object.custom.resolve("frames"));
 							if (object.custom.resolve("frames") == null) { // add static
-								//trace("cc" + object.name);
 								addGraphic(
 									new TiledImage(
 										Asset.graphics(tileset.imageSource), 
@@ -125,14 +132,16 @@ class MapScene extends Scene
 								}
 								
 								if (object.type == "creature") {
-									//trace(object.custom);
+									//var e:Dynamic = null;
 									//creatures can have "animations" = "idle, walk", and "frames" is a list of ints
-									var e = new Creature(object.x, object.y - tileset.tileHeight);
+									var e = new CompositeCreature(object.x, object.y - tileset.tileHeight);									
+																											
 									e.name = name;
 									e.width = tileset.tileWidth;
 									e.height = tileset.tileHeight;
 									e.currentPosition = Math.round(object.x / tileset.tileWidth);
-							
+									
+									
 									//trace("creature: " +e.name);
 									var health = object.custom.resolve("health");
 									if (null == health) health = "2";
@@ -154,7 +163,7 @@ class MapScene extends Scene
 										var currentframe = 0;
 										var index = 0;									
 										for (anim in Std.string(animations).split(", ")) {
-											//trace(anim);
+											//trace(anim, e.name, tileset.imageSource, object.gid);
 											if (first) {
 												e.addSprites(tileset.imageSource, tileset.tileWidth, tileset.tileHeight,
 														tileset.fromGid(object.gid), framecounts[0], name = anim);											
@@ -167,13 +176,46 @@ class MapScene extends Scene
 												e.addAnimation(anim, range);
 												currentframe += framecounts[index];
 											}
+											//trace("added", e.sprite);
 											
 										}
+									} else {
+											trace("Null animations for " + e.name);
 									}
+									
 									//trace("adding inputhandler");
-									e.inputHandler = new CreatureInput();											
+									e.inputHandler = new CreatureInput();																											
+									
+									if (grouptype == "creature") {
+										if (e.name == mastercreature.name) {
+											/*var tmp = cast e;
+											tmp.children.concat(mastercreature.children);
+											mastercreature.children = new Array<Creature>();
+											*/
+											/*var tmp = mastercreature.children;
+											trace("bb");
+											mastercreature = e;
+											trace("cc");
+											//mastercreature.children = tmp;
+											mastercreature.children.concat(tmp);
+											trace(e.toString());
+											*/
+											//add(mastercreature);											//e.children.concat(mastercreature.children);
+											e.children = e.children.concat(mastercreature.children);
+											//mastercreature.children = new Array<Creature>();
+											//add(e);											
+											mastercreature = e;
+										} else {
+											mastercreature.addChild(e);											
+											add(e);
+										}
+									} else {
+										add(e);
+									}
+							
+									 
 									// could add scene to inputhandler.
-									add(e);								
+									
 								} else {
 									var e = new TmxAnimatedObject(object.x, object.y - tileset.tileHeight);
 									//trace("added object");
@@ -187,6 +229,9 @@ class MapScene extends Scene
 							}
 						} 						
 					}
+				}
+				if (grouptype == "creature") {
+					add(mastercreature);
 				}
 			} else { // not drawable object group
 				if (group.name == "Areas") {

@@ -406,7 +406,7 @@
     <property name="option" value="enter"/>
    </properties>
   </object>
-  <object name="chevron" gid="19" x="144" y="144">
+  <object name="chevron" gid="19" x="147" y="137">
    <properties>
     <property name="frames" value="4"/>
    </properties>
@@ -418,7 +418,7 @@
   </object>
  </objectgroup>
  <objectgroup name="Areas" width="25" height="15">
-  <object name="stuff" x="125" y="77" width="52" height="36"/>
-  <object name="enter" x="126" y="115" width="52" height="30"/>
+  <object name="cinematic" x="124" y="80" width="52" height="36"/>
+  <object name="enter" x="124" y="113" width="52" height="30"/>
  </objectgroup>
 </map>

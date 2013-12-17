@@ -6,6 +6,9 @@ import com.haxepunk.graphics.Image;
 import com.haxepunk.graphics.Spritemap;
 import com.haxepunk.Mask;
 import com.haxepunk.masks.Imagemask;
+import com.haxepunk.Sfx;
+import scenes.Cinematic;
+import com.haxepunk.HXP;
 
 
 /**
@@ -38,9 +41,19 @@ class Bullet extends Entity
 				scene.remove(this);				
 				creature.ammo += 1;
 			} else {
+				var foo = new Sfx(Asset.sfx("hit.wav"));
+				foo.play();
 				creature.health -= this.power;
 				if (creature.health == 0) {
+					foo = new Sfx(Asset.sfx("hit.wav"));
+					foo.play();
 					scene.remove(creature);
+					scene.add(new Powerup(creature.x + creature.halfWidth, creature.y + creature.halfHeight));
+					if (creature.name == "spider") {
+						//HXP.scene.
+						HXP.scene = new Cinematic("anim_placeholder", 400, 240, 10, 1);
+						HXP.swapScene();
+					}
 				}
 			//scene.remove(entity);
 			}
