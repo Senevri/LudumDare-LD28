@@ -3,6 +3,7 @@ package scenes;
 import com.haxepunk.Scene;
 import com.haxepunk.HXP;
 import com.haxepunk.tmx.TmxMap;
+import entities.CompositeCreature;
 import entities.Creature;
 
 /**
@@ -43,7 +44,7 @@ class Adventure extends MapScene
 	{
 		super.begin();
 		
-		var creatures = new Array<Creature>();
+		var creatures = new Array<CompositeCreature>();
 		
 		getType("creature", creatures);
 		for (c in creatures) {
@@ -61,7 +62,7 @@ class Adventure extends MapScene
 	override public function update() 
 	{
 		super.update();
-		var creatures = new Array<Creature>();
+		var creatures = new Array<CompositeCreature>();
 		
 		getType("creature", creatures);
 		for (c in creatures) {
@@ -89,6 +90,9 @@ class Adventure extends MapScene
 					c.inputHandler = new CreatureInput();
 				}
 				//trace(c.inputHandler);
+				if (c.children.length == 0) {
+					testmove = 0;
+				}
 				c.inputHandler.setInput( testmove, 0);
 				if (c.x < 30) testmove = 1;
 				if (c.x > 200) testmove = -1;				

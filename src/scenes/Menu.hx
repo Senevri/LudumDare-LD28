@@ -68,7 +68,9 @@ class Menu extends MapScene
 			if (Input.check("enter")) {							
 				switch (area.name) {
 					case "cinematic":
-						HXP.scene = new Cinematic("intro_movie", 400, 240, 20, 2);
+						var cinematic = new Cinematic("intro_movie", 400, 240, 20, 2);
+						cinematic.setAudio("BoxCat_Games_-_11_-_Assignment.mp3");
+						HXP.scene = cinematic;
 						HXP.swapScene();
 					case "enter":
 						//trace("enter game");

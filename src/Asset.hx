@@ -1,4 +1,6 @@
 package ;
+import flash.media.Sound;
+import openfl.Assets;
 
 /**
  * ...
@@ -21,6 +23,14 @@ class Asset
 	static public function sfx(string:String):String 
 	{
 		return pathify("sfx", string);
+	}
+	
+	static public function music(source:String):Dynamic 
+	{
+		var music = pathify("music", source);
+		//var music = Assets.getMusic(source);
+		//trace(music);		
+		return music;
 	}
 	
 	static private function pathify(string:String, imgpath:String):String

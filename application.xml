@@ -6,7 +6,7 @@
 	<meta title="LD28" package="LD28" version="1.0.0" company="Esa Karjalainen" />
 	
 	<!-- output -->
-	<app main="Main" file="LD28" path="bin" />
+	<app main="Main" file="LD28-postjam" path="bin" />
 	
 	<window background="#000000" fps="60" />
 	<window width="800" height="480" unless="mobile" />

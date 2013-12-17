@@ -3,8 +3,11 @@ package scenes;
 import com.haxepunk.HXP;
 import com.haxepunk.Scene;
 import com.haxepunk.graphics.Spritemap;
+import com.haxepunk.Sfx;
 import com.haxepunk.utils.Input;
 import com.haxepunk.utils.Key;
+import flash.media.Sound;
+import openfl.Assets;
 
 /**
  * ...
@@ -22,9 +25,14 @@ class Cinematic extends Scene
 		sprite.add("default", [for (i in 0...frames) i], fps, false);
 		var e = addGraphic(sprite);
 		animation = sprite;
-		Input.define("done", [Key.ANY]);
-		
-		
+		Input.define("done", [Key.ANY]);			
+	}
+	
+	public function setAudio(source:Dynamic) {
+		var asset = Asset.music(Std.string(source));
+		var sfx = new Sfx(asset);
+		trace(sfx);
+		audio = sfx;
 	}
 	
 	public override function begin() 
@@ -37,6 +45,10 @@ class Cinematic extends Scene
 	{
 		super.update();
 		animation.play("default");
+		if (null != audio && !audio.playing) {
+			audio.play();
+		}
+		
 		if (Input.check("done")) {
 			HXP.scene = new Menu();
 			HXP.swapScene();
@@ -45,4 +57,5 @@ class Cinematic extends Scene
 	
 	private var framesource:Dynamic;
 	private var animation:Spritemap;
+	private var audio: Sfx = null;
 }

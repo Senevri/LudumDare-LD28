@@ -40,9 +40,14 @@ class MapScene extends Scene
 	public function drawMap (map:TmxMap, layermap:Map < String, Array<String> >, ?inputHandler:TmxAnimatedObject->Void=null ) 
 	{
 		for (key in map.imageLayers.keys()) {
-			var imgpath = map.imageLayers[key];
+			var imglayer:Map<String, String> = map.imageLayers[key];
 			//trace("aa" + imgpath);
-			addGraphic(new Image(Asset.graphics(imgpath)));			
+			var img = new Image(Asset.graphics(imglayer["source"]));
+			if (imglayer.exists("fixed")) {
+				img.scrollX = 0;
+				img.scrollY = 0;
+			}
+			addGraphic(img);			
 		}
 		
 		// FIXME: cannot just arbitrarily load all graphics. As a hack I could do a hashmap for now, or match tileset name to layer.

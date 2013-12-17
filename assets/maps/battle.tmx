@@ -17,6 +17,9 @@
  </tileset>
  <imagelayer name="Background" width="25" height="8">
   <image source="../gfx/nightbg_640w.png"/>
+  <properties>
+   <property name="fixed" value=""/>
+  </properties>
  </imagelayer>
  <layer name="Tiles" width="25" height="8">
   <data>
